@@ -1,0 +1,50 @@
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+  <a routerLink="/Home" class="navbar-brand" href="#" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <img src="../assets/logo.png" width="32" height="32"/>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+      (click)="isMenuCollapsed = !isMenuCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+          <a class="nav-link" routerLink="/Home">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn nav-link" id="dropdownBasic1" ngbDropdownToggle>Categories</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div  *ngFor="let c of prodCategService.GetAll()">
+              <button ngbDropdownItem (click)="Search(c.Name)">{{ c.Name }}</button>
+            </div>
+          </div>
+        </div>
+      </li>
+  </ul>
+
+  <app-login></app-login>
+
+  <app-cart></app-cart>
+
+    <form class="form-inline my-2 my-lg-0" #form="ngForm">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="searchTerm"
+              (keyup.enter)="Search(searchTerm.value)" #searchTerm required/>
+        <div class="input-group-append">
+          <button class="form-control btn btn-outline-secondary" type="button" data-display="static"
+              aria-haspopup="true" aria-expanded="false" (click)="Search(searchTerm.value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle d-flex my-auto" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+            </svg>
+          </button>
+          <div class="separator"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</nav>
+

@@ -1,0 +1,25 @@
+
+<div class="container-fluid">
+  <ngb-carousel #carousel [interval]="2000" [pauseOnHover]="true" [pauseOnFocus]="false">
+    <ng-template ngbSlide *ngFor="let prod of carouselProducts">
+      <img src="{{ prod.ThumbnailUrl }}" [routerLink]="['/ProductDetails', prod.Id]"
+          class="img-fluid mx-auto d-block" style="max-height: 400px;">
+    </ng-template>
+  </ngb-carousel>
+
+  <div class="row d-flex justify-content-center">
+    <div *ngFor="let p of prodService.Products">
+      <div class="col">
+        <div [routerLink]="['/ProductDetails', p.Id]" class="card mb-2 mt-2 border border-secondary"
+        style="width: 18rem;">
+          <img src="{{ p.ThumbnailUrl }}" class="card-img-top" style="max-height: 300px;" alt="...">
+          <div class="card-body p-1">
+            <h5 class="card-title text-center">{{ p.Name }} - ${{ p.Price }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

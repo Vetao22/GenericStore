@@ -1,0 +1,51 @@
+
+<div class="container-fluid p-0">
+  <button *ngIf="!loginService.logged" type="button" class="btn btn-outline-secondary"
+       (click)="OpenModal(loginModal)">Login</button>
+
+  <div *ngIf="loginService.logged" ngbDropdown class="mr-1">
+    <button class="btn nav-link p-0" id="dropdownBasic1" ngbDropdownToggle>
+       <img class="img-thumbnail" height="32" width="32" src="{{ loginService.user.ThumbnailUrl}}">
+            {{ loginService.user.Name }}
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem [routerLink]="['/UserDetails', loginService.user.Id]">Profile</button>
+      <button ngbDropdownItem>Orders</button>
+      <div class="dropdown-divider"></div>
+      <button ngbDropdownItem (click)="Logout()">Logout</button>
+    </div>
+  </div>
+
+<ng-template #loginModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Login</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #form="ngForm">
+      <div class="form-group">
+        <label for="emailCtrl" class="mr-1">Email: </label>
+        <input type="email" class="form-control" id="emailCtrl" placeholder="Email"
+         [(ngModel)]="email" name="emailCtrl" required email #emailCtrl="ngModel">
+         <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)"
+         class="alert alert-danger mt-1">Please, the email.</div>
+      </div>
+      <div class="form-group mt-1">
+        <label for="passwordCtrl" class="mr-1">Password: </label>
+        <input type="password" class="form-control" id="passwordCtrl" placeholder="Password" required
+          [(ngModel)]="password" name="passwordCtrl" #passwordCtrl="ngModel"
+          (keyup.enter)="Login()">
+        <div *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched)"
+            class="alert alert-danger mt-1">Please, the password.</div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light mr-auto" [routerLink]="['/UserDetails', -1]"
+      (click)="modal.close()">Sign Up</button>
+    <button type="button" class="btn btn-light" (click)="Login()">Login</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

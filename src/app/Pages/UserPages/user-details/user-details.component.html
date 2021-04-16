@@ -1,0 +1,76 @@
+
+<div class="container-fluid m-3">
+    <form #form="ngForm" (ngSubmit)="OnSubmit()">
+      <div class="form-row">
+        <div class="col-3" style="max-width: 200px;">
+          <img src="{{ user.ThumbnailUrl }}" class="img-thumbnail mt-1">
+          <button type="button" class="btn btn-light mt-1 w-100 h-25" style="max-height: 25px;"
+            (click)="OpenModal(changeThumbnailUrlModal)">
+              <img src="assets/updateIcon.png" class="img-fluid d-block m-auto h-100"/>
+          </button>
+        </div>
+        <div class="col-8">
+          <label for="name">Name:</label>
+          <input id="name" type="text" class="form-control" [(ngModel)]="user.Name" name="name"
+            required minlength="4" #name="ngModel"/>
+
+          <div class="alert alert-danger my-1" *ngIf="name.invalid && (name.dirty || name.touched)">
+            HEY! Dumbass, you forgot your name.
+          </div>
+
+          <label for="email">Email:</label>
+          <input id="email" name="email" type="email" class="form-control" [(ngModel)]="user.Email" required email #email="ngModel"/>
+
+          <div class="alert alert-danger my-1" *ngIf="email.invalid && (email.dirty || email.touched)">
+            How do you want us to contact you without an e-mail, HUH?!
+          </div>
+
+          <label for="password">password:</label>
+          <input id="password" name="password" type="password" class="form-control" [(ngModel)]="user.Password"
+             required minlength="6" #password="ngModel"/>
+
+          <div class="alert alert-danger my-1" *ngIf="password.invalid && (password.dirty || password.touched)">
+            Your password must have at least 6 digits, don't be the '123456' person, thank you.
+          </div>
+
+          <button id="acceptBtn" type="submit" [disabled]="!form.form.valid" class="btn btn-outline-info mt-2"
+             (click)="AcceptChanges(acceptChangesModal)">Accept</button>
+        </div>
+      </div>
+
+      <ng-template #acceptChangesModal let-modal>
+          <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabelAcceptChanges"></h5>
+              <button type="button" class="close" (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+             Changes Accepeted!!
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn btn-primary" (click)="modal.close()">Close</button>
+          </div>
+      </ng-template>
+
+      <ng-template #changeThumbnailUrlModal let-modal>
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalLabelChangeUrl"></h5>
+            <button type="button" class="close" (click)="modal.close(changeThumbnailUrlModal)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control w-100" placeholder="Thumbnail URL" id="thumbnailUrl"
+                [(ngModel)]="user.ThumbnailUrl" [ngModelOptions]="{ standalone: true }" Name="thumbnailUrl"
+                required UrlValidator #urlThumbnail="ngModel"/>
+                <div class="alert alert-danger my-1 w-100" *ngIf="urlThumbnail.invalid && (urlThumbnail.dirty || urlThumbnail.touched)">
+                  Insert a valid url that points to an image.
+                </div>
+            </div>
+          </div>
+      </ng-template>
+    </form>
+</div>
+

@@ -1,0 +1,33 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="border border-secondary rounded p-1 m-1">
+      <div class="col">
+        <img class="img-fluid mx-auto d-block rounded" style="max-width: 45%;" src="{{ prod.ThumbnailUrl }}"/>
+      </div>
+      <div class="col">
+        <h3 class="h4">Description:</h3>
+        <p>{{ prod.Description }} </p>
+      </div>
+      <div class="col">
+        <hr/>
+      </div>
+      <div class="col">
+        <h5>Price: {{ prod.Price }}</h5>
+      </div>
+      <div class="col">
+        <hr/>
+      </div>
+      <div class="col">
+            <div class="btn-group-vertical d-block" role="group">
+              <button type="button" class="btn btn-light border border-dark">Buy</button>
+              <button type="button" class="btn btn-light border-dark" (click)="AddToCart()">Add to Cart</button>
+              <button *ngIf="loginService.logged" type="button" class="btn btn-light border-dark" (click)="Favorite()">
+                <div *ngIf="!loginService.user.IsProductFavorite(prod.Id)">Favorite</div>
+                <div *ngIf="loginService.user.IsProductFavorite(prod.Id)">Un-Favorite</div>
+              </button>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
