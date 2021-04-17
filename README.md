@@ -1,3 +1,3 @@
 # GenericStore
 
-This is just an Angualar experimentation.
+This is just an Angular experimentation.
