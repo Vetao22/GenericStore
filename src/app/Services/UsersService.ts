@@ -13,6 +13,8 @@ export class UsersService
   {
     this.Users = new Array<UserModel>();
 
+    this.CurrentUser = new UserModel();
+
     this.Load();
   }
 
